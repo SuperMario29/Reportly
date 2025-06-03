@@ -38,11 +38,8 @@ namespace Reportly.Services
 
         public static FacebookAdMetrics FetchFacebookMetrics()
         {
-            const string accessToken = "YOUR_ACCESS_TOKEN";
-            const string adAccountId = "act_YOUR_AD_ACCOUNT_ID";
-
             var client = new RestClient("https://graph.facebook.com/v19.0/");
-            var request = new RestRequest($"{adAccountId}/insights", Method.Get);
+            var request = new RestRequest($"insights", Method.Get);
             request.AddParameter("date_preset", "last_30d");
             request.AddParameter("fields", "spend,purchases,purchase_value,actions");
 

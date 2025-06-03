@@ -54,7 +54,7 @@ builder.Services.AddAuthorizationCore(options =>
 // Register custom auth state provider
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
-builder.Services.AddSingleton(config);
+//builder.Services.AddSingleton(config);
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ShopifyService>();
 builder.Services.AddScoped<FacebookService>();

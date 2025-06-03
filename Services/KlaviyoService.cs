@@ -13,8 +13,6 @@ namespace Reportly.Services
     {
         private readonly HttpClient _http;
         private readonly string _apiKey;
-        private readonly KlaviyoService _klaviyoService;
-
 
         public KlaviyoService(HttpClient http, AppSettings config)
         {
@@ -22,12 +20,6 @@ namespace Reportly.Services
             _apiKey = config.Klaviyo.ApiKey;
             _http.BaseAddress = new Uri(config.Klaviyo.BaseUrl);
             _http.DefaultRequestHeaders.Add("Authorization", $"Klaviyo-API-Key {_apiKey}");
-        }
-
-
-        public KlaviyoService(KlaviyoService klaviyoService)
-        {
-            _klaviyoService = klaviyoService;
         }
 
         public async Task<List<KlaviyoListsResponse>> GetListsAsync()
@@ -43,7 +35,7 @@ namespace Reportly.Services
             var metrics = new KlaviyoMetrics();
             
             // Get list metrics
-            var lists = await _klaviyoService.GetListsAsync();
+            var lists = await GetListsAsync();
             metrics.TotalSubscribers = lists.Sum(l => l.ListSize);
             metrics.ActiveSubscribers = lists.Sum(l => l.ActiveCount);
 
@@ -70,7 +62,7 @@ namespace Reportly.Services
             var metrics = new KlaviyoMetrics();
             
             // Get list metrics
-            var lists = await _klaviyoService.GetListsAsync();
+            var lists = await GetListsAsync();
             metrics.TotalSubscribers = lists.Sum(l => l.ListSize);
             metrics.ActiveSubscribers = lists.Sum(l => l.ActiveCount);
 
@@ -95,7 +87,7 @@ namespace Reportly.Services
         private async Task<List<CampaignPerformance>> GetCampaignsInDateRange(DateTime startDate, DateTime endDate)
         {
             // Klaviyo API endpoint for metrics
-            var response = await _klaviyoService.Http.GetAsync(
+            var response = await _http.GetAsync(
                 $"campaigns?filter=greater-than(send_time,{startDate:yyyy-MM-dd})" +
                 $"&filter=less-than(send_time,{endDate:yyyy-MM-dd})" +
                 "&include=metrics");
@@ -121,7 +113,7 @@ namespace Reportly.Services
       private async Task<List<CampaignPerformance>> GetCampaigns()
         {
             // Klaviyo API endpoint for metrics
-            var response = await _klaviyoService.Http.GetAsync(
+            var response = await _http.GetAsync(
                 $"campaigns?include=metrics");
             
             response.EnsureSuccessStatusCode();

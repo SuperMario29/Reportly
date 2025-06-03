@@ -1,0 +1,15 @@
+﻿<SatelliteAssembly>
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\cs\Microsoft.Data.SqlClient.resources.dll" Culture="cs" DestinationSubDirectory="cs\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\de\Microsoft.Data.SqlClient.resources.dll" Culture="de" DestinationSubDirectory="de\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\es\Microsoft.Data.SqlClient.resources.dll" Culture="es" DestinationSubDirectory="es\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\fr\Microsoft.Data.SqlClient.resources.dll" Culture="fr" DestinationSubDirectory="fr\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\it\Microsoft.Data.SqlClient.resources.dll" Culture="it" DestinationSubDirectory="it\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\ja\Microsoft.Data.SqlClient.resources.dll" Culture="ja" DestinationSubDirectory="ja\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\ko\Microsoft.Data.SqlClient.resources.dll" Culture="ko" DestinationSubDirectory="ko\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\pl\Microsoft.Data.SqlClient.resources.dll" Culture="pl" DestinationSubDirectory="pl\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\pt-BR\Microsoft.Data.SqlClient.resources.dll" Culture="pt-BR" DestinationSubDirectory="pt-BR\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\ru\Microsoft.Data.SqlClient.resources.dll" Culture="ru" DestinationSubDirectory="ru\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\tr\Microsoft.Data.SqlClient.resources.dll" Culture="tr" DestinationSubDirectory="tr\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\zh-Hans\Microsoft.Data.SqlClient.resources.dll" Culture="zh-Hans" DestinationSubDirectory="zh-Hans\" />
+  <Assembly Name="C:\Users\pbush\.nuget\packages\microsoft.data.sqlclient\6.0.2\lib\net9.0\zh-Hant\Microsoft.Data.SqlClient.resources.dll" Culture="zh-Hant" DestinationSubDirectory="zh-Hant\" />
+</SatelliteAssembly>

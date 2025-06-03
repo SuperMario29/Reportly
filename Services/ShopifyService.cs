@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Reportly.Models;
@@ -14,13 +15,6 @@ namespace Reportly.Services
     {
         private readonly HttpClient _http;
         private readonly string _apiVersion = "2023-10";
-
-        private readonly ShopifyService _shopifyService;
-
-        public ShopifyService(ShopifyService shopifyService)
-        {
-            _shopifyService = shopifyService;
-        }
 
         public ShopifyService(HttpClient http, AppSettings config)
         {
@@ -67,7 +61,7 @@ namespace Reportly.Services
 
             // Conversion rate would typically come from analytics integration
             // This is a placeholder implementation
-            metrics.ConversionRate = await CalculateConversionRate(startDate, endDate);
+            metrics.ConversionRate = await CalculateConversionRate(startDate, endDate, metrics);
 
             return metrics;
         }
@@ -95,16 +89,16 @@ namespace Reportly.Services
 
             // Conversion rate would typically come from analytics integration
             // This is a placeholder implementation
-            metrics.ConversionRate = await CalculateConversionRate();
+            metrics.ConversionRate = await CalculateConversionRate(metrics);
 
             return metrics;
         }
 
-        private async Task<List<ShopifyOrder>> GetOrdersInDateRange(DateTime startDate, DateTime endDate)
+        private async Task<List<Models.ShopifyOrder>> GetOrdersInDateRange(DateTime startDate, DateTime endDate)
         {
             // Implementation depends on your Shopify API version
             // This is a simplified example
-            var response = await _shopifyService.Http.GetAsync(
+            var response = await _http.GetAsync(
                 $"orders.json?created_at_min={startDate:yyyy-MM-dd}&created_at_max={endDate:yyyy-MM-dd}&status=any");
 
             response.EnsureSuccessStatusCode();
@@ -112,21 +106,22 @@ namespace Reportly.Services
             return JsonConvert.DeserializeObject<ShopifyOrdersResponse>(content)?.Orders ?? new();
         }
 
-        private async Task<List<ShopifyOrder>> GetOrders()
+        private async Task<List<Models.ShopifyOrder>> GetOrders()
         {
             // Implementation depends on your Shopify API version
             // This is a simplified example
-            var response = await _shopifyService.Http.GetAsync(
+            var response = await _http.GetAsync(
                 $"orders.json?status=any");
 
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<ShopifyOrdersResponse>(content)?.Orders ?? new();
+            var result = JsonConvert.DeserializeObject<ShopifyOrdersResponse>(content)?.Orders ?? new();
+            return result;
         }
 
         private async Task<int> GetNewCustomerCount(DateTime startDate, DateTime endDate)
         {
-            var response = await _shopifyService.Http.GetAsync(
+            var response = await _http.GetAsync(
                 $"customers/count.json?created_at_min={startDate:yyyy-MM-dd}&created_at_max={endDate:yyyy-MM-dd}");
 
             response.EnsureSuccessStatusCode();
@@ -137,7 +132,7 @@ namespace Reportly.Services
 
         private async Task<int> GetNewCustomerCount()
         {
-            var response = await _shopifyService.Http.GetAsync(
+            var response = await _http.GetAsync(
                 $"customers/count.json");
 
             response.EnsureSuccessStatusCode();
@@ -186,13 +181,13 @@ namespace Reportly.Services
                 .ToList();
         }
 
-        private async Task<decimal> CalculateConversionRate(DateTime startDate, DateTime endDate)
+        private async Task<decimal> CalculateConversionRate(DateTime startDate, DateTime endDate, ShopifyMetrics metrics)
         {
             // Placeholder - in a real app you'd integrate with Shopify Analytics or Google Analytics
             // This is a simplified example using session counts from the API (if available)
             try
             {
-                var sessionsResponse = await _shopifyService.Http.GetAsync(
+                var sessionsResponse = await _http.GetAsync(
                     $"analytics/sessions.json?start_date={startDate:yyyy-MM-dd}&end_date={endDate:yyyy-MM-dd}");
 
                 if (sessionsResponse.IsSuccessStatusCode)
@@ -211,13 +206,13 @@ namespace Reportly.Services
             return 0; // Default value if we can't calculate
         }
 
-        private async Task<decimal> CalculateConversionRate()
+        private async Task<decimal> CalculateConversionRate(ShopifyMetrics metrics)
         {
             // Placeholder - in a real app you'd integrate with Shopify Analytics or Google Analytics
             // This is a simplified example using session counts from the API (if available)
             try
             {
-                var sessionsResponse = await _shopifyService.Http.GetAsync(
+                var sessionsResponse = await _http.GetAsync(
                     $"analytics/sessions.json");
 
                 if (sessionsResponse.IsSuccessStatusCode)

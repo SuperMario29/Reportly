@@ -18,6 +18,7 @@ public class SmsService
         _accountSid = accountSid;
         _authToken = authToken;
         _twilioPhoneNumber = twilioPhoneNumber;
+        _connectionString = connectionString;
     }
 
     public async Task<bool> Send2FaCode(string username)
