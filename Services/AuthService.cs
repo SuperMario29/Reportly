@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MySqlConnector;
 namespace Reportly;
 
 public class AuthService
@@ -28,7 +28,7 @@ public class AuthService
     // Register a new user
     public bool Register(User user, string password)
     {
-        using var connection = new SqlConnection(_connectionString);
+        using var connection = new MySqlConnection(_connectionString);
 
         // Check if user exists
         var existingUser = connection.QueryFirstOrDefault<User>(
@@ -60,7 +60,7 @@ public class AuthService
     // Login and generate JWT token
     public string Login(string username, string password)
     {
-        using var connection = new SqlConnection(_connectionString);
+        using var connection = new MySqlConnection(_connectionString);
         var user = connection.QueryFirstOrDefault<User>(
             "SELECT * FROM Users WHERE Username = @Username",
             new { Username = username });
@@ -111,7 +111,7 @@ public class AuthService
 
     internal User GetUserByUsername(string username)
     {
-         using var connection = new SqlConnection(_connectionString);
+         using var connection = new MySqlConnection(_connectionString);
         return connection.QueryFirstOrDefault<User>(
             "SELECT * FROM Users WHERE Username = @Username",
             new { Username = username });
@@ -119,7 +119,7 @@ public class AuthService
 
     internal bool UpdateUserInfo(User user)
     {
-        using var connection = new SqlConnection(_connectionString);
+        using var connection = new MySqlConnection(_connectionString);
         connection.Execute(
                     "UPDATE USERS SET Username = @Username , Email = @Email FROM Users WHERE Id = @Id",
                     new { Username = user.Username , Email = user.Email, Id = user.Id });
@@ -128,7 +128,7 @@ public class AuthService
     
     internal bool UpdateUserPassword(User user)
     {
-        using var connection = new SqlConnection(_connectionString);
+        using var connection = new MySqlConnection(_connectionString);
         connection.Execute(
                     "UPDATE USERS SET PasswordHash = @PasswordHash , Salt = @Salt FROM Users WHERE Id = @Id",
                     new { PasswordHash = user.PasswordHash , Salt = user.Salt, Id = user.Id });
@@ -137,7 +137,7 @@ public class AuthService
 
     internal bool UpdateUserRole(User user)
     {
-        using var connection = new SqlConnection(_connectionString);
+        using var connection = new MySqlConnection(_connectionString);
         connection.Execute(
                     "UPDATE USERS SET Role = @Role FROM Users WHERE Id = @Id",
                     new { Role = user.Role, Id = user.Id });
@@ -146,7 +146,7 @@ public class AuthService
 
     internal bool UpdateUserTwoFactor(User user)
     {
-        using var connection = new SqlConnection(_connectionString);
+        using var connection = new MySqlConnection(_connectionString);
         connection.Execute(
                     "UPDATE USERS SET TwoFactorEnabled = @TwoFactorEnabled, TwoFactorSecret = @TwoFactorSecret , PhoneNumber = @Phone FROM Users WHERE Id = @Id",
                     new { TwoFactorEnabled = user.TwoFactorEnabled, TwoFactorSecret = user.TwoFactorSecret, PhoneNumber = user.PhoneNumber, Id = user.Id });

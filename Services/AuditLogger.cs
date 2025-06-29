@@ -1,9 +1,9 @@
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Events;
-using Serilog.Sinks.SQLite;
-using Microsoft.Data.SqlClient;
+using Serilog.Sinks.MySQL;
 using Dapper;
+using MySqlConnector;
 
 public class AuditLogger
 {
@@ -15,7 +15,7 @@ public class AuditLogger
         _connectionString = connectionString;
         _logger = new LoggerConfiguration()
             .MinimumLevel.Information()
-            .WriteTo.SQLite("logs.db")
+            .WriteTo.MySQL("logs.db")
             .CreateLogger();
     }
 
@@ -23,7 +23,7 @@ public class AuditLogger
     {
         _logger.Information("User {UserId} performed {Action} from {IP}", userId, action, ipAddress);
         
-        using var connection = new SqlConnection(_connectionString);
+        using var connection = new MySqlConnection(_connectionString);
         connection.Execute(
             "INSERT INTO AuditLogs (UserId, Action, IPAddress) VALUES (@UserId, @Action, @IP)",
             new { UserId = userId, Action = action, IP = ipAddress });

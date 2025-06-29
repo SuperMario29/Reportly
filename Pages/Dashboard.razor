@@ -1,4 +1,4 @@
-@page "/"
+@page "/dashboard"
 @using Reportly.Models
 @using Reportly.Services
 @inject ShopifyService ShopifyService
@@ -18,7 +18,7 @@
                 <div class="card-body">
                     @if (shopifyMetrics == null)
                     {
-                        <p>Loading products...</p>
+                        <p>Loading Shopify Metrics...</p>
                     }
                     else
                     {
@@ -44,7 +44,7 @@
                 <div class="card-body">
                     @if (fbMetrics == null)
                     {
-                        <p>Loading metrics...</p>
+                        <p>Loading Facebook Metrics...</p>
                     }
                     else
                     {
@@ -70,7 +70,7 @@
                 <div class="card-body">
                     @if (klaviyoMetrics == null)
                     {
-                        <p>Loading lists...</p>
+                        <p>Loading Klaviyo Metrics...</p>
                     }
                     else
                     {

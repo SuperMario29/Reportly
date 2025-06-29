@@ -54,29 +54,23 @@
             },
             "Microsoft.AspNetCore.Components.WebAssembly": {
               "target": "Package",
-              "version": "[3.2.1, )"
-            },
-            "Microsoft.AspNetCore.Components.WebAssembly.Build": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.2.1, )"
+              "version": "[9.0.6, )"
             },
             "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
-              "suppressParent": "All",
               "target": "Package",
-              "version": "[3.2.1, )"
-            },
-            "Microsoft.Data.SqlClient": {
-              "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[9.0.6, )"
             },
             "Microsoft.Extensions.Http": {
               "target": "Package",
               "version": "[9.0.4, )"
             },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
             "NLog": {
               "target": "Package",
-              "version": "[1.0.0.505, )"
+              "version": "[6.0.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -90,9 +84,9 @@
               "target": "Package",
               "version": "[4.3.0, )"
             },
-            "Serilog.Sinks.SQLite": {
+            "Serilog.Sinks.MySQL": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[5.0.0, )"
             },
             "System.Net.Http.Json": {
               "target": "Package",

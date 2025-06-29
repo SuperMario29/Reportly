@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Microsoft.Data.SqlClient;
+using MySqlConnector;
 
 public class SqlBackupService
 {
@@ -15,10 +15,10 @@ public class SqlBackupService
 
     public void PerformBackup()
     {
-        var backupFile = Path.Combine(_backupPath, $"FacebookAds_{DateTime.Now:yyyyMMdd}.bak");
+        var backupFile = Path.Combine(_backupPath, $"Reportly_{DateTime.Now:yyyyMMdd}.bak");
         
-        using var connection = new SqlConnection(_connectionString);
-        var command = new SqlCommand(
+        using var connection = new MySqlConnection(_connectionString);
+        var command = new MySqlCommand(
             $"BACKUP DATABASE FacebookAds TO DISK = '{backupFile}' WITH COMPRESSION",
             connection);
 

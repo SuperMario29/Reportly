@@ -2,6 +2,13 @@ using System;
 
 namespace Reportly.Models
 {
+public class DatabaseSettings
+    {
+        public string MySqlConnectionString { get; set; }
+        public int MaxRetryCount { get; set; } = 3;
+        public int CommandTimeout { get; set; } = 30;
+    }
+
     public class AppSettings
     {
         public ShopifyConfig Shopify { get; set; }
